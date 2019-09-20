@@ -1,5 +1,4 @@
 
 export default class Auth {
-    constructor(){
-    }
+    // constructor() {}
 }
