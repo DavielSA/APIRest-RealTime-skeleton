@@ -3,11 +3,11 @@ import { Request, Response } from "express";
 
 export default class Auth {
 
-    public router: express.Router;
-     constructor(router: any) {
-         this.router = router;
+    public app: express.Application;
+     constructor(app: express.Application) {
+         this.app = app;
 
-         this.router.get("/login/v1", this.Getv1);
+         this.app.get("/login/v1", this.Getv1);
     }
 
     private Getv1(req: Request, res: Response) {

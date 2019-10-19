@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Auth {
-    constructor(router) {
-        this.router = router;
-        this.router.get("/login/v1", this.Getv1);
+    constructor(app) {
+        this.app = app;
+        this.app.get("/login/v1", this.Getv1);
     }
     Getv1(req, res) {
         const result = [
