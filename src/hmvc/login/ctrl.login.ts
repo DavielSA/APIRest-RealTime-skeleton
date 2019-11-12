@@ -42,6 +42,11 @@ class Login {
 
     }
 
+    private Register(req: Request, res: Response) {
+        let entity: mUser;
+        entity = req.body;
+
+    }
     private Getv1(req: Request, res: Response) {
         const result: any = [
             { id: 1, nombre: "Daviel" },

@@ -12,6 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb = __importStar(require("mongodb"));
 const logs_1 = __importDefault(require("./../libs/logs"));
+// import { Acciones, ConfigField, ResponseG } from "./configField";
+const configField_1 = require("./configField");
 class DB {
     /**
      * Instanciamos la clase. Aquí obtenemos de .env
@@ -53,6 +55,46 @@ class DB {
             }
         }
         return fill;
+    }
+    Validate(entity, action) {
+        const Errores = [];
+        const Warning = [];
+        const Info = [];
+        const Respuesta = {
+            error: [],
+            warning: [],
+            info: this.config
+        };
+        if (action !== configField_1.Fields.Acciones.Insert && action !== configField_1.Fields.Acciones.Update
+            && action !== configField_1.Fields.Acciones.Filter) {
+            Respuesta.error.push("Unkow actions");
+            return Respuesta;
+        }
+        for (const i in this.config) {
+            const item = this.config[i];
+            if (action === configField_1.Fields.Acciones.Insert) {
+                this.ValidInsert(item, entity);
+            }
+            else if (action === configField_1.Fields.Acciones.Update) {
+                this.ValidUpdate(item, entity);
+            }
+            else if (action === configField_1.Fields.Acciones.Filter) {
+                this.ValidateFilter(item, entity);
+            }
+        }
+        Respuesta.error = Errores;
+        Respuesta.warning = Warning;
+        Respuesta.info = this.config;
+        return Respuesta;
+    }
+    ValidInsert(item, entity) {
+        return true;
+    }
+    ValidUpdate(item, entity) {
+        return true;
+    }
+    ValidateFilter(item, entity) {
+        return true;
     }
 }
 exports.default = DB;

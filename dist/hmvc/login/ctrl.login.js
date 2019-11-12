@@ -35,6 +35,10 @@ class Login {
             });
         });
     }
+    Register(req, res) {
+        let entity;
+        entity = req.body;
+    }
     Getv1(req, res) {
         const result = [
             { id: 1, nombre: "Daviel" },

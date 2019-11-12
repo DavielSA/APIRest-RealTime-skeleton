@@ -1,5 +1,8 @@
-import { Collection, MongoError } from "mongodb";
+import { Collection, MongoError, WriteOpResult } from "mongodb";
 import db from "../../bd/db";
+import { Fields } from "./../../bd/configField";
+import logs from "./../../libs/logs";
+import FieldC from "./fields";
 import mUser from "./mUser";
 
 class dUsers extends db {
@@ -9,6 +12,7 @@ class dUsers extends db {
         this.dbName = "bd";
         this.tblName = "usuarios";
         this.Connect();
+        this.config = FieldC;
     }
 
     public GetOne(user: mUser, callback: any) {
@@ -22,5 +26,14 @@ class dUsers extends db {
         });
     }
 
+    public Create(user: mUser, callback: (error: MongoError, result: WriteOpResult) => any): void {
+        try {
+            this.table.insertOne(user);
+            this.table.save(user, callback);
+        } catch (e) {
+            logs.Log(e);
+            callback(new MongoError(e), null);
+        }
+    }
 }
 export default new dUsers();
